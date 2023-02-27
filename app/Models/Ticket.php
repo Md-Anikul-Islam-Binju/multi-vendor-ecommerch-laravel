@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Ticket extends Model
+{
+    use SoftDeletes;
+    protected  $guarded = [];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    public function single_conversation(){
+        return $this->hasOne(TicketConversation::class)->orderBy('id', 'desc');
+    }
+
+    public function ticket_conversation(){
+        return $this->hasMany(TicketConversation::class);
+    }
+
+}
